@@ -1,0 +1,86 @@
+import React, { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Mail,
+  Github,
+  Linkedin,
+  Moon,
+  Sun,
+  ArrowDownCircle,
+  Link as LinkIcon,
+  Phone,
+  MapPin,
+  ExternalLink,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+// ===== Helper Data (수정해서 사용하세요) =====
+const PROFILE = {
+  name: "홍길동",
+  title: "프론트엔드 개발자 · UX 애호가",
+  summary:
+    "사용자 경험을 최우선으로 생각하는 프론트엔드 개발자입니다. React, TypeScript, 성능 최적화와 디자인 시스템 구축에 관심이 많습니다.",
+  email: "you@example.com",
+  phone: "+82-10-0000-0000",
+  location: "Seoul, Korea",
+  resumeUrl: "#", // 이력서 파일 경로
+  socials: [
+    { label: "GitHub", href: "https://github.com/", icon: Github },
+    { label: "LinkedIn", href: "https://www.linkedin.com/", icon: Linkedin },
+  ],
+  skills: [
+    "JavaScript/TypeScript",
+    "React/Next.js",
+    "Tailwind CSS",
+    "Node.js",
+    "UI/UX",
+    "웹 성능 최적화",
+  ],
+};
+
+const PROJECTS = [
+  {
+    title: "포트폴리오 웹앱",
+    description:
+      "Next.js와 Tailwind로 제작한 반응형 포트폴리오. 이미지 최적화, 다크모드, 접근성 고려.",
+    link: "#",
+    tags: ["Next.js", "Tailwind", "Vercel"],
+  },
+  {
+    title: "실시간 채팅 서비스",
+    description:
+      "Socket 기반 실시간 채팅 애플리케이션. 인증, 읽음 상태, 메시지 검색 기능 포함.",
+    link: "#",
+    tags: ["React", "Socket.io", "Firebase"],
+  },
+  {
+    title: "데이터 대시보드",
+    description:
+      "Recharts로 만든 비즈니스 지표 대시보드. API 연동 및 캐싱 전략 적용.",
+    link: "#",
+    tags: ["React", "Recharts", "REST API"],
+  },
+];
+
+// ===== Avatar Placeholder =====
+const Avatar = () => (
+  <div className="relative h-28 w-28 shrink-0 rounded-2xl bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-700 dark:to-slate-800 grid place-items-center shadow-inner">
+    <span className="text-3xl">👋</span>
+  </div>
+);
+
+export default function PersonalHomepage() {
+  const [dark, setDark] = useState(true);
+
+  const containerCls = useMemo(
+    () => `min-h-screen ${dark ? "dark" : ""}`,
+    [dark]
+  );
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(PROFILE.email);
+      alert("이메일 주소가 복사되었습니다 ✉️
